@@ -18,12 +18,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.belajar_login_cantik.Common.Common;
+import com.example.belajar_login_cantik.Helper.Helper;
 import com.example.belajar_login_cantik.Model.OpenWeatherMap;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
+
+import io.paperdb.Paper;
 
 public class HomeActivity extends AppCompatActivity implements LocationListener {
 
@@ -52,6 +57,10 @@ public class HomeActivity extends AppCompatActivity implements LocationListener 
         txtCelsius = (TextView) findViewById(R.id.txtCelsius);
         imageView = (ImageView) findViewById(R.id.imageView);
 
+        //paper init
+        Paper.init(this);
+        Paper.book().write("temp",txtCelsius.getText().toString());
+        Paper.book().write("desc",txtDescription.getText().toString());
 
         //Get Coordinates
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -119,7 +128,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener 
         lng = location.getLongitude();
 
 
-        new GetWeather().execute(com.codepoin.weatherassists.Common.Common.apiRequest(this.langCode(),String.valueOf(lat),String.valueOf(lng)));
+        new GetWeather().execute(com.example.belajar_login_cantik.Common.Common.apiRequest(this.langCode(),String.valueOf(lat),String.valueOf(lng)));
     }
 
     @Override
@@ -155,7 +164,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener 
             String stream = null;
             String urlString = params[0];
 
-            com.codepoin.weatherassists.Helper.Helper http = new com.codepoin.weatherassists.Helper.Helper();
+            com.example.belajar_login_cantik.Helper.Helper http = new com.example.belajar_login_cantik.Helper.Helper();
             stream = http.getHTTPData(urlString);
             return stream;
         }
@@ -179,7 +188,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener 
 //            txtTime.setText(String.format("%s/%s", com.codepoin.weatherassists.Common.Common.unixTimeStampToDateTime(openWeatherMap.getSys().getSunrise()), com.codepoin.weatherassists.Common.Common.unixTimeStampToDateTime(openWeatherMap.getSys().getSunset())));
             txtCelsius.setText(String.format("%.2f °C",openWeatherMap.getMain().getTemp()));
             Picasso.get()
-                    .load(com.codepoin.weatherassists.Common.Common.getImage(openWeatherMap.getWeather().get(0).getIcon()))
+                    .load(com.example.belajar_login_cantik.Common.Common.getImage(openWeatherMap.getWeather().get(0).getIcon()))
                     .into(imageView);
 
         }
