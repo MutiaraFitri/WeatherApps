@@ -21,6 +21,7 @@ public class WeatherInfoWidget extends AppWidgetProvider {
         Paper.init(context);
         String temp = Paper.book().read("temp");
         String desc = Paper.book().read("desc");
+        String timeWidget = Paper.book().read("timeWidget");
 
 
 
@@ -28,6 +29,7 @@ public class WeatherInfoWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_info_widget);
         views.setTextViewText(R.id.appwidget_text, temp);
         views.setTextViewText(R.id.appwidget_desc, desc);
+        views.setTextViewText(R.id.timeWidget, timeWidget);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

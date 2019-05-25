@@ -57,10 +57,11 @@ public class HomeActivity extends AppCompatActivity implements LocationListener 
         txtCelsius = (TextView) findViewById(R.id.txtCelsius);
         imageView = (ImageView) findViewById(R.id.imageView);
 
-        //paper init
+        String timeWidget = Common.getDateNow();
         Paper.init(this);
         Paper.book().write("temp",txtCelsius.getText().toString());
         Paper.book().write("desc",txtDescription.getText().toString());
+        Paper.book().write("timeWidget",timeWidget);
 
         //Get Coordinates
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
